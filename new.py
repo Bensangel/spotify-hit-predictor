@@ -22,7 +22,7 @@ df = df.drop(['track', 'artist', 'uri', 'chorus_hit', 'sections'], axis=1, error
 df = df.dropna()
 
 # Prepare data
-X = df.drop(['target', 'decade'], axis=1)
+X = df.drop(['target'], axis=1)
 y = df['target']
 
 # Split and train model
