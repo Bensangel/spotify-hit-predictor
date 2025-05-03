@@ -32,6 +32,9 @@ model = LogisticRegression(max_iter=1000)
 model.fit(X_train, y_train)
 
 # Save the model
-joblib.dump(model, 'spotify_hit_predictor.pkl')
+import pickle
+
+with open('spotify_hit_predictor.pkl', 'wb') as file:
+    pickle.dump(model, file)
 
 print("✅ Model saved as spotify_hit_predictor.pkl")
