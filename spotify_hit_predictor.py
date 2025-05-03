@@ -24,6 +24,10 @@ feature_columns = [
     'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', 
     'duration_ms', 'time_signature'
 ]
+def extract_track_id(spotify_url):
+    if "track/" in spotify_url:
+        return spotify_url.split("track/")[1].split("?")[0]
+    return None
 
 # 🔗 Paste Spotify track URL
 spotify_url = st.text_input("🎧 Paste a Spotify track link (optional):")
