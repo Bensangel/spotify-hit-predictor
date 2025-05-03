@@ -17,7 +17,7 @@ input_df = None
 
 # 🎨 Page config
 st.set_page_config(page_title="Song Hit Predictor", layout="centered")
-st.title("🎵 Spotify Hit Predictor")
+st.title("🎵 Song Hit Predictor")
 st.markdown("Enter a song's features manually **or** paste a Spotify track link!")
 
 # 📊 Feature columns
