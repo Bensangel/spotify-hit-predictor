@@ -13,6 +13,8 @@ sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
 # 🔮 Load model
 model = joblib.load('spotify_hit_predictor.pkl')
 
+input_df = None
+
 # 🎨 Page config
 st.set_page_config(page_title="Spotify Hit Predictor", layout="centered")
 st.title("🎵 Spotify Hit Predictor")
