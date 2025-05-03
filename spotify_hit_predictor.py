@@ -4,11 +4,11 @@ import joblib
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-# 🎧 Spotify API Auth
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
     client_id=st.secrets["SPOTIFY_CLIENT_ID"],
     client_secret=st.secrets["SPOTIFY_CLIENT_SECRET"]
 ))
+
 
 # 🔍 Load pre-trained model
 model = joblib.load('spotify_hit_predictor.pkl')
@@ -28,20 +28,20 @@ feature_columns = [
 # 🔗 Paste Spotify track URL
 spotify_url = st.text_input("🎧 Paste a Spotify track link (optional):")
 
-input_df = None
-
-# If Spotify link is provided
 if spotify_url:
+    track_id = extract_track_id(spotify_url)
     try:
-        track_id = spotify_url.split("/")[-1].split("?")[0]
         features = sp.audio_features([track_id])[0]
-        input_df = pd.DataFrame([{
-            col: features[col] for col in feature_columns
-        }])
-        st.success("✅ Track features loaded from Spotify!")
-        st.write(input_df)
+        if features:
+            for col in feature_columns:
+                input_data[col] = features[col]
+            input_df = pd.DataFrame([input_data])
+            st.success("✅ Features loaded from Spotify!")
+        else:
+            st.error("Could not get features for that track.")
     except Exception as e:
         st.error(f"❌ Could not fetch song: {e}")
+
 
 # Otherwise, let user use sliders
 else:
@@ -55,6 +55,10 @@ else:
         else:
             input_data[col] = st.sidebar.slider(f"{col}", 0.0, 1.0, 0.5)
     input_df = pd.DataFrame([input_data])
+def extract_track_id(spotify_url):
+    if "track/" in spotify_url:
+        return spotify_url.split("track/")[1].split("?")[0]
+    return None
 
 # 🔮 Predict button
 if input_df is not None and st.button("🎧 Predict!"):
