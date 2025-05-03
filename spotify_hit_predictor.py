@@ -16,7 +16,7 @@ model = joblib.load('spotify_hit_predictor.pkl')
 input_df = None
 
 # 🎨 Page config
-st.set_page_config(page_title="Spotify Hit Predictor", layout="centered")
+st.set_page_config(page_title="Song Hit Predictor", layout="centered")
 st.title("🎵 Spotify Hit Predictor")
 st.markdown("Enter a song's features manually **or** paste a Spotify track link!")
 
