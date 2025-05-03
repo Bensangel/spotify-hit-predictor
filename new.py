@@ -3,6 +3,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 import joblib
 
+# after training
+joblib.dump(model, 'spotify_hit_predictor.pkl')
+
 # Load all your CSVs
 files = [
     'dataset-of-60s.csv', 'dataset-of-70s.csv', 'dataset-of-80s.csv',
